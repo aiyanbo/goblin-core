@@ -8,6 +8,8 @@ commands:
       unix: cd
     responses:
       - 'Please waiting...'
+    context:
+      parent: '..'
 
   - name: maven
     mapping:
