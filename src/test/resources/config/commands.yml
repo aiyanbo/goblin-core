@@ -1,0 +1,16 @@
+namespace: operating_system
+commands:
+  - name: go to
+    mapping:
+      windows: cd
+      linux: cd
+      max os x: cd
+      unix: cd
+    responses:
+      - 'Please waiting...'
+
+  - name: maven
+    mapping:
+      all: mvn
+    context:
+      skip test: '-DskipTests=true'

@@ -13,6 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>4.11</junit.version>
+        <yamlbeans.version>1.06</yamlbeans.version>
         <jmotor-utility.version>1.0-SNAPSHOT</jmotor-utility.version>
     </properties>
 
@@ -29,6 +30,13 @@
             <artifactId>jmotor-utility</artifactId>
             <version>${jmotor-utility.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.esotericsoftware.yamlbeans</groupId>
+            <artifactId>yamlbeans</artifactId>
+            <version>${yamlbeans.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
