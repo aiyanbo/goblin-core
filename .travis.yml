@@ -1,0 +1,17 @@
+language: java
+
+jdk:
+  - openjdk7
+  - oraclejdk7
+
+before_install:
+  - git clone https://github.com/aiyanbo/jmotor-utility.git
+  - cd jmotor-utility
+  - mvn clean install -Dmaven.test.skip=true
+  - cd ..
+
+install: mvn install
+
+notifications:
+  email:
+    - yanbo.ai@gmail.com
