@@ -11,6 +11,17 @@ commands:
     context:
       parent: '..'
 
+  - name: list
+    mapping:
+      windows: dir
+      linux: ls
+      mac os x: ls
+      unix: ls
+    responses:
+      - 'List now'
+    context:
+      details: -l
+
   - name: maven
     mapping:
       all: mvn

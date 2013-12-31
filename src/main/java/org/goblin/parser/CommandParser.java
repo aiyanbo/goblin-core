@@ -1,5 +1,7 @@
 package org.goblin.parser;
 
+import org.goblin.exception.CommandNotFoundException;
+
 /**
  * Component:
  * Description:
@@ -7,6 +9,6 @@ package org.goblin.parser;
  *
  * @author Andy Ai
  */
-public class CommandParser {
-
+public interface CommandParser {
+    String parse(String command) throws CommandNotFoundException;
 }

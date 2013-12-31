@@ -3,13 +3,9 @@ package org.goblin.commander.impl;
 import org.goblin.commander.GoblinCommander;
 import org.goblin.dto.ProcessContext;
 import org.goblin.exception.CommandExecuteException;
+import org.goblin.exception.CommandNotFoundException;
 import org.goblin.executor.CommandExecutor;
-import org.goblin.executor.impl.BashCommandExecutorImpl;
-import org.goblin.executor.impl.WindowsCommandExecutorImpl;
-import org.jmotor.util.SystemUtilities;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.goblin.parser.CommandParser;
 
 /**
  * Component:
@@ -19,21 +15,26 @@ import java.util.Map;
  * @author Andy Ai
  */
 public class GoblinCommanderImpl implements GoblinCommander {
-    private static final Map<String, CommandExecutor> COMMANDER_MAPPER = new HashMap<>(3);
+    private CommandParser commandParser;
+    private CommandExecutor commandExecutor;
 
-    static {
-        COMMANDER_MAPPER.put("windows", new WindowsCommandExecutorImpl());
-        BashCommandExecutorImpl bashCommandExecutor = new BashCommandExecutorImpl();
-        COMMANDER_MAPPER.put("mac os x", bashCommandExecutor);
-        COMMANDER_MAPPER.put("linux", bashCommandExecutor);
-    }
 
     @Override
-    public ProcessContext execute(ProcessContext context, String command) throws CommandExecuteException {
-        return switchCommandExecutor().execute(context, command);
+    public ProcessContext execute(ProcessContext context, String command)
+            throws CommandNotFoundException, CommandExecuteException {
+        String _command = commandParser.parse(command);
+        ProcessContext processContext = commandExecutor.execute(context, _command);
+        if (_command.startsWith("cd")) {
+            processContext.setDirectory(_command.replace("cd", "").trim());
+        }
+        return processContext;
     }
 
-    private CommandExecutor switchCommandExecutor() {
-        return COMMANDER_MAPPER.get(SystemUtilities.getOSName().toLowerCase());
+    public void setCommandParser(CommandParser commandParser) {
+        this.commandParser = commandParser;
+    }
+
+    public void setCommandExecutor(CommandExecutor commandExecutor) {
+        this.commandExecutor = commandExecutor;
     }
 }

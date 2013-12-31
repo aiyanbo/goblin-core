@@ -13,6 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>4.11</junit.version>
+        <guava.version>15.0</guava.version>
         <yamlbeans.version>1.06</yamlbeans.version>
         <jmotor-utility.version>1.0-SNAPSHOT</jmotor-utility.version>
     </properties>
@@ -23,6 +24,12 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
 
         <dependency>
