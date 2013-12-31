@@ -29,6 +29,7 @@ public class GoblinCommanderTest extends TestCase {
             System.out.println(line);
         }
         System.out.println(process.waitFor());
+        CloseableUtilities.closeQuietly(reader);
 
         processContext = commander.execute(processContext, "list details");
         process = processContext.getProcess();

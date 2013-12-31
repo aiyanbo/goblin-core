@@ -10,6 +10,7 @@ import org.jmotor.util.StringUtilities;
 import org.jmotor.util.SystemUtilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,11 +33,15 @@ public class CommandParserImpl implements CommandParser {
             throw new CommandNotFoundException("Can't found command: " + command);
         }
         String[] _commands = StringUtilities.split(command, StringUtilities.BLANK_SPACE);
-        Command cmd = findCommand(commandSets, _commands[0]);
+        Command cmd = null;
         int startIndex = 1;
-        if (null == cmd) {
-            startIndex = 2;
-            cmd = findCommand(commandSets, _commands[0] + StringUtilities.BLANK_SPACE + _commands[1]);
+        for (int i = 0; i < _commands.length; i++) {
+            startIndex = i + 1;
+            cmd = findCommand(commandSets, StringUtilities.join(Arrays.copyOf(_commands, startIndex),
+                    StringUtilities.BLANK_SPACE));
+            if (cmd != null) {
+                break;
+            }
         }
         if (null == cmd) {
             throw new CommandNotFoundException("Can't found command: " + command);
