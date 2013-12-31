@@ -7,6 +7,7 @@ import org.goblin.dto.ProcessContext;
 import org.jmotor.util.CloseableUtilities;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -22,24 +23,28 @@ public class GoblinCommanderTest extends TestCase {
         ProcessContext processContext = new ProcessContext();
         processContext = commander.execute(processContext, "go to /tmp");
         Process process = processContext.getProcess();
+        printProcess(process);
+
+        processContext = commander.execute(processContext, "list details");
+        process = processContext.getProcess();
+        printProcess(process);
+
+
+        processContext = commander.execute(processContext, "maven version");
+        process = processContext.getProcess();
+        printProcess(process);
+
+    }
+
+    private void printProcess(Process process) throws IOException, InterruptedException {
         InputStreamReader isr = new InputStreamReader(process.getInputStream());
         BufferedReader reader = new BufferedReader(isr);
         String line;
         while ((line = reader.readLine()) != null) {
             System.out.println(line);
         }
-        System.out.println(process.waitFor());
         CloseableUtilities.closeQuietly(reader);
-
-        processContext = commander.execute(processContext, "list details");
-        process = processContext.getProcess();
-        isr = new InputStreamReader(process.getInputStream());
-        reader = new BufferedReader(isr);
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line);
-        }
         System.out.println(process.waitFor());
-        CloseableUtilities.closeQuietly(reader);
     }
 
 }

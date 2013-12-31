@@ -26,4 +26,5 @@ commands:
     mapping:
       all: mvn
     context:
+      version: -version
       skip test: '-DskipTests=true'
