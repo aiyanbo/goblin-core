@@ -12,6 +12,7 @@ import org.jmotor.util.SystemUtilities;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Component:
@@ -53,14 +54,14 @@ public class CommandParserImpl implements CommandParser {
             shell = cmd.getMapping().get("all");
         }
         results.add(shell);
-        for (int i = startIndex; i < _commands.length; i++) {
-            String context = cmd.getContext().get(_commands[i]);
-            if (StringUtilities.isNotBlank(context)) {
-                results.add(context);
-            } else {
-                results.add(_commands[i]);
+        String context = StringUtilities.remove(command, cmd.getName());
+        Map<String, String> contextMapping = cmd.getContext();
+        if (CollectionUtilities.isNotEmpty(contextMapping)) {
+            for (Map.Entry<String, String> entry : contextMapping.entrySet()) {
+                context = context.replace(entry.getKey(), entry.getValue());
             }
         }
+        results.add(context);
         return StringUtilities.join(results, StringUtilities.BLANK_SPACE);
     }
 
