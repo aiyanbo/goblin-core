@@ -2,7 +2,7 @@ namespace: operating_system
 commands:
   - name: go to
     mapping:
-      windows: cd
+      windows 7: cd
       linux: cd
       mac os x: cd
       unix: cd
@@ -13,7 +13,7 @@ commands:
 
   - name: list
     mapping:
-      windows: dir
+      windows 7: dir
       linux: ls
       mac os x: ls
       unix: ls

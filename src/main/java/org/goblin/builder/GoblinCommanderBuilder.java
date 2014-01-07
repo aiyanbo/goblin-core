@@ -61,7 +61,7 @@ public class GoblinCommanderBuilder {
 
     private CommandExecutor createCommandExecutor() {
         switch (SystemUtilities.getOSName().toLowerCase()) {
-            case "windows":
+            case "windows 7":
                 return new WindowsCommandExecutorImpl();
             default:
                 return new BashCommandExecutorImpl();
