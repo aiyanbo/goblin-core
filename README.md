@@ -5,6 +5,11 @@ Goblin
 
 Natural language processing tool, It looks like Siri.
 
+Requires
+--------
+
+- jdk1.7
+
 Commands
 --------
 
