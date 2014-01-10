@@ -12,9 +12,10 @@ import java.util.Map;
  */
 public class Command {
     private String name;
+    private Integer contextIndex;
     private List<String> responses;
     private Map<String, String> mapping;
-    private Map<String, String> context;
+    private Map<String, String> options;
 
     public String getName() {
         return name;
@@ -22,6 +23,14 @@ public class Command {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getContextIndex() {
+        return contextIndex;
+    }
+
+    public void setContextIndex(Integer contextIndex) {
+        this.contextIndex = contextIndex;
     }
 
     public List<String> getResponses() {
@@ -40,11 +49,11 @@ public class Command {
         this.mapping = mapping;
     }
 
-    public Map<String, String> getContext() {
-        return context;
+    public Map<String, String> getOptions() {
+        return options;
     }
 
-    public void setContext(Map<String, String> context) {
-        this.context = context;
+    public void setOptions(Map<String, String> options) {
+        this.options = options;
     }
 }

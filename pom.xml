@@ -15,6 +15,7 @@
         <junit.version>4.11</junit.version>
         <guava.version>15.0</guava.version>
         <yamlbeans.version>1.06</yamlbeans.version>
+        <commons-lang3.version>3.2.1</commons-lang3.version>
         <jmotor-utility.version>1.0-SNAPSHOT</jmotor-utility.version>
     </properties>
 
@@ -24,6 +25,12 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <dependency>

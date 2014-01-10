@@ -6,9 +6,10 @@ commands:
       linux: cd
       mac os x: cd
       unix: cd
+    contextIndex: -1
     responses:
       - 'Please waiting...'
-    context:
+    options:
       parent: '..'
 
   - name: list
@@ -17,14 +18,15 @@ commands:
       linux: ls
       mac os x: ls
       unix: ls
+    contextIndex: -1
     responses:
       - 'List now'
-    context:
+    options:
       details: -l
 
   - name: maven
     mapping:
       all: mvn
-    context:
+    options:
       version: -version
       skip test: '-DskipTests=true'

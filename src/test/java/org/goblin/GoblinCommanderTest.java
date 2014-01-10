@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.goblin.builder.GoblinCommanderBuilder;
 import org.goblin.commander.GoblinCommander;
 import org.goblin.dto.ProcessContext;
+import org.goblin.dto.Result;
 import org.jmotor.util.CloseableUtilities;
 
 import java.io.BufferedReader;
@@ -21,17 +22,17 @@ public class GoblinCommanderTest extends TestCase {
     public void testCommander() throws Exception {
         GoblinCommander commander = GoblinCommanderBuilder.newBuilder().build();
         ProcessContext processContext = new ProcessContext();
-        processContext = commander.execute(processContext, "go to /tmp");
-        Process process = processContext.getProcess();
+        Result result = commander.execute(processContext, "go to /tmp");
+        Process process = result.getProcess();
         printProcess(process);
 
-        processContext = commander.execute(processContext, "list details");
-        process = processContext.getProcess();
+        result = commander.execute(processContext, "list details");
+        process = result.getProcess();
         printProcess(process);
 
 
-        processContext = commander.execute(processContext, "maven version");
-        process = processContext.getProcess();
+        result = commander.execute(processContext, "maven version");
+        process = result.getProcess();
         printProcess(process);
 
     }

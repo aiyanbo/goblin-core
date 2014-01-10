@@ -1,8 +1,7 @@
 package org.goblin.commander;
 
 import org.goblin.dto.ProcessContext;
-import org.goblin.exception.CommandExecuteException;
-import org.goblin.exception.CommandNotFoundException;
+import org.goblin.dto.Result;
 
 /**
  * Component:
@@ -12,5 +11,5 @@ import org.goblin.exception.CommandNotFoundException;
  * @author Andy Ai
  */
 public interface GoblinCommander {
-    ProcessContext execute(ProcessContext context, String command) throws CommandNotFoundException, CommandExecuteException;
+    Result execute(ProcessContext processContext, String command);
 }

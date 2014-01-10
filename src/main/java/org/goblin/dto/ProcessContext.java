@@ -10,16 +10,25 @@ import java.util.List;
  * @author Andy Ai
  */
 public class ProcessContext {
-    private Process process;
+    private String next;
+    private String search;
     private String directory;
     private List<String> commands;
 
-    public Process getProcess() {
-        return process;
+    public String getNext() {
+        return next;
     }
 
-    public void setProcess(Process process) {
-        this.process = process;
+    public void setNext(String next) {
+        this.next = next;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 
     public String getDirectory() {

@@ -8,11 +8,11 @@ commands:
       unix: cd
     responses:
       - 'Please waiting...'
-    context:
+    options:
       parent: '..'
 
   - name: maven
     mapping:
       all: mvn
-    context:
+    options:
       skip test: '-DskipTests=true'

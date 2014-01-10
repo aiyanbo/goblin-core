@@ -1,11 +1,15 @@
 package org.goblin.commander.impl;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.goblin.commander.GoblinCommander;
+import org.goblin.dto.Executable;
 import org.goblin.dto.ProcessContext;
+import org.goblin.dto.Result;
 import org.goblin.exception.CommandExecuteException;
 import org.goblin.exception.CommandNotFoundException;
 import org.goblin.executor.CommandExecutor;
 import org.goblin.parser.CommandParser;
+import org.jmotor.util.StringUtilities;
 
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -23,17 +27,51 @@ public class GoblinCommanderImpl implements GoblinCommander {
 
 
     @Override
-    public ProcessContext execute(ProcessContext context, String command)
-            throws CommandNotFoundException, CommandExecuteException {
-        String _command = commandParser.parse(command);
-        ProcessContext processContext = commandExecutor.execute(context, _command);
-        if (_command.startsWith("cd")) {
-            String directory = _command.replace("cd", "").trim();
-            if (Files.exists(FileSystems.getDefault().getPath(directory))) {
-                processContext.setDirectory(directory);
+    public Result execute(ProcessContext processContext, String command) {
+        Result result = new Result();
+        try {
+            if (StringUtilities.isNotBlank(processContext.getSearch())) {
+                boolean confirm = BooleanUtils.toBoolean(command);
+                if (confirm) {
+                    result.setSearch(processContext.getSearch());
+                } else {
+                    result.setSpeech("Canceled");
+                }
+                processContext.setSearch(null);
+                return result;
             }
+            Executable executable = commandParser.parse(command);
+            String context = executable.getContext();
+            if (StringUtilities.isNotBlank(context)) {
+                boolean passed = validateContext(executable);
+                if (!passed) {
+                    result.setException("Can not found context");
+                    result.setSpeech("Can not found" + context);
+                }
+            }
+            Process process = commandExecutor.execute(processContext, executable);
+            result.setProcess(process);
+            if (executable.getCommand().equals("cd")) {
+                processContext.setDirectory(context);
+            }
+            return result;
+        } catch (CommandNotFoundException | CommandExecuteException e) {
+            processContext.setSearch(command);
+            result.setSpeech("Do you want search on website?");
+            return result;
         }
-        return processContext;
+    }
+
+    public boolean validateContext(Executable executable) {
+        if (null == executable.getContextType()) {
+            return Files.exists(FileSystems.getDefault().getPath(executable.getContext()));
+        }
+        switch (executable.getContextType()) {
+            case "file":
+                return Files.exists(FileSystems.getDefault().getPath(executable.getContext()));
+            default:
+                return Files.exists(FileSystems.getDefault().getPath(executable.getContext()));
+        }
     }
 
     public void setCommandParser(CommandParser commandParser) {

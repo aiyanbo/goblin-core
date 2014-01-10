@@ -1,5 +1,6 @@
 package org.goblin.executor;
 
+import org.goblin.dto.Executable;
 import org.goblin.dto.ProcessContext;
 import org.goblin.exception.CommandExecuteException;
 
@@ -11,5 +12,5 @@ import org.goblin.exception.CommandExecuteException;
  * @author Andy Ai
  */
 public interface CommandExecutor {
-    ProcessContext execute(ProcessContext context, String command) throws CommandExecuteException;
+    Process execute(ProcessContext context, Executable executable) throws CommandExecuteException;
 }

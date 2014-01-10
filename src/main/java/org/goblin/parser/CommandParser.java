@@ -1,5 +1,6 @@
 package org.goblin.parser;
 
+import org.goblin.dto.Executable;
 import org.goblin.exception.CommandNotFoundException;
 
 /**
@@ -10,5 +11,5 @@ import org.goblin.exception.CommandNotFoundException;
  * @author Andy Ai
  */
 public interface CommandParser {
-    String parse(String command) throws CommandNotFoundException;
+    Executable parse(String commandLine) throws CommandNotFoundException;
 }
