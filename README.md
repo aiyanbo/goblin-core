@@ -9,6 +9,7 @@ Requires
 --------
 
 - jdk1.7
+- systems: windows7, mac os x, linux
 
 Commands
 --------
