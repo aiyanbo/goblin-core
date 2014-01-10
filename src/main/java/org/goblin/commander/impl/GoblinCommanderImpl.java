@@ -7,6 +7,9 @@ import org.goblin.exception.CommandNotFoundException;
 import org.goblin.executor.CommandExecutor;
 import org.goblin.parser.CommandParser;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+
 /**
  * Component:
  * Description:
@@ -25,7 +28,10 @@ public class GoblinCommanderImpl implements GoblinCommander {
         String _command = commandParser.parse(command);
         ProcessContext processContext = commandExecutor.execute(context, _command);
         if (_command.startsWith("cd")) {
-            processContext.setDirectory(_command.replace("cd", "").trim());
+            String directory = _command.replace("cd", "").trim();
+            if (Files.exists(FileSystems.getDefault().getPath(directory))) {
+                processContext.setDirectory(directory);
+            }
         }
         return processContext;
     }
