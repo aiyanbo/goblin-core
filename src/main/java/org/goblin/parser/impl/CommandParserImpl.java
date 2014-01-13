@@ -25,15 +25,15 @@ public class CommandParserImpl implements CommandParser {
     private CommandSetProvider commandSetProvider;
 
     @Override
-    public Executable parse(String commandLine) throws CommandNotFoundException {
-        if (StringUtilities.isBlank(commandLine)) {
+    public Executable parse(String commandline) throws CommandNotFoundException {
+        if (StringUtilities.isBlank(commandline)) {
             throw new NullPointerException("Command can't be empty.");
         }
         List<CommandSet> commandSets = commandSetProvider.getCommandSets();
         if (CollectionUtilities.isEmpty(commandSets)) {
-            throw new CommandNotFoundException("Can't found command: " + commandLine);
+            throw new CommandNotFoundException("Can't found command: " + commandline);
         }
-        String[] _commands = StringUtilities.split(commandLine, StringUtilities.BLANK_SPACE);
+        String[] _commands = StringUtilities.split(commandline, StringUtilities.BLANK_SPACE);
         Command cmd = null;
         int startIndex;
         for (int i = 0; i < _commands.length; i++) {
@@ -45,7 +45,7 @@ public class CommandParserImpl implements CommandParser {
             }
         }
         if (null == cmd) {
-            throw new CommandNotFoundException("Can't found commandLine: " + commandLine);
+            throw new CommandNotFoundException("Can't found commandLine: " + commandline);
         }
         Executable executable = new Executable();
         String osName = SystemUtilities.getOSName().toLowerCase();
@@ -53,7 +53,7 @@ public class CommandParserImpl implements CommandParser {
         if (StringUtilities.isBlank(shell)) {
             shell = cmd.getMapping().get("all");
         }
-        String predicate = StringUtilities.remove(commandLine, cmd.getName());
+        String predicate = StringUtilities.remove(commandline, cmd.getName());
         Map<String, String> options = cmd.getOptions();
 
         Integer contextIndex = cmd.getContextIndex();

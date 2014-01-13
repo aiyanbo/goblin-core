@@ -11,5 +11,5 @@ import org.goblin.exception.CommandNotFoundException;
  * @author Andy Ai
  */
 public interface CommandParser {
-    Executable parse(String commandLine) throws CommandNotFoundException;
+    Executable parse(String commandline) throws CommandNotFoundException;
 }
