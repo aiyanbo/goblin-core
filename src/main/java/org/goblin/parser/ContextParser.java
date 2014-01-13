@@ -1,5 +1,8 @@
 package org.goblin.parser;
 
+import org.goblin.dto.CommandContext;
+import org.goblin.exception.NoSuchContextException;
+
 /**
  * Component:
  * Description:
@@ -8,4 +11,5 @@ package org.goblin.parser;
  * @author Andy Ai
  */
 public interface ContextParser {
+    CommandContext parse(String commandline) throws NoSuchContextException;
 }
