@@ -30,3 +30,4 @@ commands:
     options:
       version: -version
       skip test: '-DskipTests=true'
+      skip tests: '-DskipTests=true'
