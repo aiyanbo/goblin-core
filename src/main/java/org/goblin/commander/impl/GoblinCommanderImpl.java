@@ -11,6 +11,7 @@ import org.goblin.executor.CommandExecutor;
 import org.goblin.parser.CommandParser;
 import org.jmotor.util.StringUtilities;
 
+import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 
@@ -22,6 +23,7 @@ import java.nio.file.Files;
  * @author Andy Ai
  */
 public class GoblinCommanderImpl implements GoblinCommander {
+    private static final String PARENT_SYMBOL = "..";
     private CommandParser commandParser;
     private CommandExecutor commandExecutor;
 
@@ -52,7 +54,16 @@ public class GoblinCommanderImpl implements GoblinCommander {
             Process process = commandExecutor.execute(processContext, executable);
             result.setProcess(process);
             if (executable.getCommand().equals("cd")) {
-                processContext.setDirectory(context);
+                if (PARENT_SYMBOL.equals(context)) {
+                    String directory = processContext.getDirectory();
+                    int endIndex = directory.lastIndexOf(File.separator);
+                    if (endIndex > 0) {
+                        directory = directory.substring(0, endIndex);
+                        processContext.setDirectory(directory);
+                    }
+                } else {
+                    processContext.setDirectory(context);
+                }
             }
             return result;
         } catch (CommandNotFoundException | CommandExecuteException e) {
