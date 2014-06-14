@@ -52,6 +52,10 @@ public class GoblinCommanderImpl implements GoblinCommander {
                     result.setSpeech("Can not found" + context);
                 }
             }
+            if (StringUtilities.isBlank(executable.getCommand())) {
+                result.setSpeech(executable.getResponses().get(0));
+                return result;
+            }
             Process process = commandExecutor.execute(processContext, executable);
             result.setProcess(process);
             if (executable.getCommand().equals("cd")) {

@@ -48,10 +48,15 @@ public class CommandParserImpl implements CommandParser {
             throw new CommandNotFoundException("Can't found commandLine: " + commandline);
         }
         Executable executable = new Executable();
+        Map<String, String> cmdMapping = cmd.getMapping();
+        if (CollectionUtilities.isEmpty(cmdMapping)) {
+            executable.setResponses(cmd.getResponses());
+            return executable;
+        }
         String osName = SystemUtilities.getOSName().toLowerCase();
-        String shell = cmd.getMapping().get(osName);
+        String shell = cmdMapping.get(osName);
         if (StringUtilities.isBlank(shell)) {
-            shell = cmd.getMapping().get("all");
+            shell = cmdMapping.get("all");
         }
         String predicate = StringUtilities.remove(commandline, cmd.getName());
         Map<String, String> options = cmd.getOptions();

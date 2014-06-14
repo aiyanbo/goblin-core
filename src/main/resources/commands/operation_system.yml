@@ -31,3 +31,15 @@ commands:
       version: -version
       skip test: '-DskipTests=true'
       skip tests: '-DskipTests=true'
+
+  - name: install
+    mapping:
+      all: mvn clean install
+
+  - name: build
+    mapping:
+      all: mvn package
+
+  - name: goodbye
+    responses:
+      - 'Goodbye'

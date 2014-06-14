@@ -1,5 +1,7 @@
 package org.goblin.dto;
 
+import java.util.List;
+
 /**
  * Component:
  * Description:
@@ -13,6 +15,7 @@ public class Executable {
     private String options;
     private String context;
     private String contextType;
+    private List<String> responses;
 
     public String getType() {
         return type;
@@ -52,5 +55,13 @@ public class Executable {
 
     public void setContextType(String contextType) {
         this.contextType = contextType;
+    }
+
+    public List<String> getResponses() {
+        return responses;
+    }
+
+    public void setResponses(List<String> responses) {
+        this.responses = responses;
     }
 }
