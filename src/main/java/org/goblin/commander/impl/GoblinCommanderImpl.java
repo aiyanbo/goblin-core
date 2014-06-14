@@ -10,6 +10,7 @@ import org.goblin.exception.CommandNotFoundException;
 import org.goblin.executor.CommandExecutor;
 import org.goblin.parser.CommandParser;
 import org.jmotor.util.StringUtilities;
+import org.jmotor.util.SystemUtilities;
 
 import java.io.File;
 import java.nio.file.FileSystems;
@@ -54,8 +55,12 @@ public class GoblinCommanderImpl implements GoblinCommander {
             Process process = commandExecutor.execute(processContext, executable);
             result.setProcess(process);
             if (executable.getCommand().equals("cd")) {
-                if (PARENT_SYMBOL.equals(context)) {
+                String options = executable.getOptions();
+                if (StringUtilities.isNotBlank(options) && PARENT_SYMBOL.equals(options.trim())) {
                     String directory = processContext.getDirectory();
+                    if (StringUtilities.isBlank(directory)) {
+                        directory = SystemUtilities.getUserDir();
+                    }
                     int endIndex = directory.lastIndexOf(File.separator);
                     if (endIndex > 0) {
                         directory = directory.substring(0, endIndex);
