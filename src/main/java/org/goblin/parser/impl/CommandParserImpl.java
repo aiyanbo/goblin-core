@@ -57,7 +57,7 @@ public class CommandParserImpl implements CommandParser {
         Map<String, String> options = cmd.getOptions();
 
         Integer contextIndex = cmd.getContextIndex();
-        if (null != contextIndex) {
+        if (null != contextIndex && StringUtilities.isNotBlank(predicate)) {
             String[] contexts = StringUtilities.split(predicate, StringUtilities.BLANK_SPACE);
             String context;
             if (Math.abs(contextIndex) > contexts.length) {
@@ -74,14 +74,15 @@ public class CommandParserImpl implements CommandParser {
                 predicate = StringUtilities.remove(predicate, context);
             }
         }
-        String _options = predicate;
-        if (CollectionUtilities.isNotEmpty(options)) {
+
+        if (StringUtilities.isNotBlank(predicate) && CollectionUtilities.isNotEmpty(options)) {
+            String _options = predicate;
             for (Map.Entry<String, String> entry : options.entrySet()) {
                 _options = _options.replace(entry.getKey(), entry.getValue());
             }
+            executable.setOptions(_options);
         }
         executable.setCommand(shell);
-        executable.setOptions(_options);
         return executable;
     }
 
