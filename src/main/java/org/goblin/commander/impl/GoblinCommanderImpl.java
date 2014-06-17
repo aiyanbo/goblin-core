@@ -15,6 +15,7 @@ import org.jmotor.util.SystemUtilities;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.util.List;
 
 /**
  * Component:
@@ -53,7 +54,9 @@ public class GoblinCommanderImpl implements GoblinCommander {
                 }
             }
             if (StringUtilities.isBlank(executable.getCommand())) {
-                result.setSpeech(executable.getResponses().get(0));
+                List<String> responses = executable.getResponses();
+                int index = (int) (Math.random() * responses.size());
+                result.setSpeech(responses.get(index));
                 return result;
             }
             Process process = commandExecutor.execute(processContext, executable);
