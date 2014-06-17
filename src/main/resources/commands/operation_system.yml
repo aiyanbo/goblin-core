@@ -44,4 +44,10 @@ commands:
     responses:
       - 'Goodbye'
       - 'Bye'
-      - 'See you'
+      - 'See you later'
+
+  - name: shut up
+    responses:
+      - 'Bala bala bala bala'
+      - 'Ding ding ding ding ding ding'
+      - '...'
