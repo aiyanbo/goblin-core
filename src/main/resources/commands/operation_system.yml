@@ -46,6 +46,17 @@ commands:
       - 'Bye'
       - 'See you later'
 
+  - name: bye
+    responses:
+      - 'Goodbye'
+      - 'Bye'
+      - 'See you later'
+
+
+  - name: hello
+    responses:
+      - 'Hello yanbo'
+
   - name: shut up
     responses:
       - 'Bala bala bala bala'
